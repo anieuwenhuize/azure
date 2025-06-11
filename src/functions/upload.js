@@ -28,6 +28,6 @@ app.http('upload', {
         for await (const blob of blobs)
             blebber++;
 
-        return { body: `Hello, ${input}! There are number of ${blebber} previous requerst.` };
+        return { body: `Hello, ${input}! There are number of ${blebber} previous requests.` };
     }
 });
