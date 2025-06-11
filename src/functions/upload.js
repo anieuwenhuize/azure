@@ -6,22 +6,28 @@ app.http('upload', {
     authLevel: 'anonymous',
     handler: async (request, context) => {
 
+        // parse input into varable
+        const input = request.query.get('name') || await request.text() || 'world';
+
         // Connect to Azure Blob Storage
         const connectionString = "DefaultEndpointsProtocol=https;AccountName=cemtented;AccountKey=8zozpuVwCjpTu51pMnx4DLpTFnmu2tGRJ+OcHmFJNBGZ5mcF5pPzrjwR1Wvp119QLUwoUlzSkFZh+ASthwtBwQ==;EndpointSuffix=core.windows.net";
         const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
         const containerClient = blobServiceClient.getContainerClient("abc");
 
-        context.log(`Http function processed request for url "${request.url}"`);
+        // context.log(`Http function processed request for url "${request.url}"`);
+        const blobName = "blob" + new Date().getTime() + '.txt';
+        const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+        const uploadBlobResponse = await blockBlobClient.upload(input, input.length);
+        
 
-        const blobs = await containerClient.listBlobsFlat();
+        // create new blob first
         
         // determine number of blobbies
-        const blebber = 0;
+        let blebber = 0;
+        const blobs = containerClient.listBlobsFlat();
         for await (const blob of blobs)
             blebber++;
 
-        const name = request.query.get('name') || await request.text() || 'world';
-
-        return { body: `Hello, ${name}! There are number of ${blebber} previous requerst.` };
+        return { body: `Hello, ${input}! There are number of ${blebber} previous requerst.` };
     }
 });
