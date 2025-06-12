@@ -10,7 +10,7 @@ app.http('upload', {
         const input = request.query.get('name') || await request.text() || 'world';
 
         // Connect to Azure Blob Storage
-        const connectionString = "DefaultEndpointsProtocol=https;AccountName=cemtented;AccountKey=8zozpuVwCjpTu51pMnx4DLpTFnmu2tGRJ+OcHmFJNBGZ5mcF5pPzrjwR1Wvp119QLUwoUlzSkFZh+ASthwtBwQ==;EndpointSuffix=core.windows.net";
+        const connectionString = "DefaultEndpointsProtocol=https;AccountName=wapensvanlicht;AccountKey=lOHE/NQOlF42U3DNZ8AvQ0rB7b9BiiYeybaiCPoEgxrdfmCS8Omj9ce/vmC3lgcACqYb+iIWvRDU+AStQEVKVg==;EndpointSuffix=core.windows.net";
         const blobServiceClient = BlobServiceClient.fromConnectionString(connectionString);
         const containerClient = blobServiceClient.getContainerClient("abc");
 
